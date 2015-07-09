@@ -2,6 +2,7 @@ Attribute VB_Name = "获取Gamedll地址"
 Public Wargamedll As Long
 Public WarStormdll As Long
 Public WAR3dll As Long
+Public HFGameShelldll As Long
 Private Declare Function GetCurrentProcess Lib "kernel32" () As Long
 Private Declare Function Module32First Lib "kernel32" (ByVal hSnapShot As Long, uProcess As MODULEENTRY32) As Long
 Private Declare Function Module32Next Lib "kernel32" (ByVal hSnapShot As Long, uProcess As MODULEENTRY32) As Long
@@ -30,7 +31,7 @@ Dim WindowHandle As Long, ChildWindowHandle As Long
          uProcess.dwSize = Len(uProcess)
          N = Module32First(hSnapShot, uProcess)
          Do While N
-                If LCase(Left(uProcess.szModule, InStr(uProcess.szModule, Chr(0)) - 1)) = na Then
+                If LCase(left(uProcess.szModule, InStr(uProcess.szModule, Chr(0)) - 1)) = na Then
                  dlljz = CLng(uProcess.modBaseAddr)
                  GoTo guanbi
                 End If
@@ -43,6 +44,13 @@ Public Function Getgamedll()
     hwnd = FindWindow(vbNullString, "Warcraft III")
     GetWindowThreadProcessId hwnd, PID
     Wargamedll = dlljz(PID, "game.dll")
+End Function
+
+Public Function GetHFGameShelldll()
+    Dim a As Long, hwnd As Long, PID As Long
+    hwnd = FindWindow(vbNullString, "浩方电竞平台 - 6.0.0.0521(RC7)")
+    GetWindowThreadProcessId hwnd, PID
+    HFGameShelldll = dlljz(PID, "gameshell.dll")
 End Function
 
 Public Function GetGGWAR3dll()

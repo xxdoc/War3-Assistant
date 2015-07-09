@@ -3,13 +3,13 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
 Begin VB.Form Form2 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "War3 Assistant"
-   ClientHeight    =   3735
-   ClientLeft      =   8235
+   ClientHeight    =   3756
+   ClientLeft      =   8232
    ClientTop       =   5520
-   ClientWidth     =   4710
+   ClientWidth     =   4668
    BeginProperty Font 
       Name            =   "宋体"
-      Size            =   21.75
+      Size            =   21.6
       Charset         =   134
       Weight          =   400
       Underline       =   0   'False
@@ -20,14 +20,14 @@ Begin VB.Form Form2
    LinkTopic       =   "Form2"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   3735
-   ScaleWidth      =   4710
+   ScaleHeight     =   3756
+   ScaleWidth      =   4668
    ShowInTaskbar   =   0   'False
    Begin VB.CommandButton Command13 
       Caption         =   "更换皮肤"
       BeginProperty Font 
          Name            =   "宋体"
-         Size            =   10.5
+         Size            =   10.8
          Charset         =   134
          Weight          =   400
          Underline       =   0   'False
@@ -52,7 +52,7 @@ Begin VB.Form Form2
       Caption         =   "获取"
       BeginProperty Font 
          Name            =   "宋体"
-         Size            =   10.5
+         Size            =   10.8
          Charset         =   134
          Weight          =   400
          Underline       =   0   'False
@@ -87,7 +87,7 @@ Begin VB.Form Form2
       Caption         =   "联系作者"
       BeginProperty Font 
          Name            =   "宋体"
-         Size            =   10.5
+         Size            =   10.8
          Charset         =   134
          Weight          =   400
          Underline       =   0   'False
@@ -105,7 +105,7 @@ Begin VB.Form Form2
       Caption         =   "使用帮助"
       BeginProperty Font 
          Name            =   "宋体"
-         Size            =   10.5
+         Size            =   10.8
          Charset         =   134
          Weight          =   400
          Underline       =   0   'False
@@ -123,7 +123,7 @@ Begin VB.Form Form2
       Caption         =   "保存默认配置"
       BeginProperty Font 
          Name            =   "宋体"
-         Size            =   10.5
+         Size            =   10.8
          Charset         =   134
          Weight          =   400
          Underline       =   0   'False
@@ -155,12 +155,6 @@ Begin VB.Form Form2
       Top             =   840
       Width           =   735
    End
-   Begin VB.Timer Timer2 
-      Enabled         =   0   'False
-      Interval        =   200
-      Left            =   120
-      Top             =   4200
-   End
    Begin VB.Timer Timer1 
       Enabled         =   0   'False
       Interval        =   60000
@@ -170,7 +164,7 @@ Begin VB.Form Form2
    Begin VB.TextBox Text2 
       BeginProperty Font 
          Name            =   "宋体"
-         Size            =   14.25
+         Size            =   14.4
          Charset         =   134
          Weight          =   400
          Underline       =   0   'False
@@ -187,7 +181,7 @@ Begin VB.Form Form2
    Begin VB.TextBox Text1 
       BeginProperty Font 
          Name            =   "宋体"
-         Size            =   14.25
+         Size            =   14.4
          Charset         =   134
          Weight          =   400
          Underline       =   0   'False
@@ -222,7 +216,7 @@ Begin VB.Form Form2
    Begin VB.TextBox GMTX 
       BeginProperty Font 
          Name            =   "宋体"
-         Size            =   14.25
+         Size            =   14.4
          Charset         =   134
          Weight          =   400
          Underline       =   0   'False
@@ -277,7 +271,7 @@ Begin VB.Form Form2
    Begin VB.TextBox HeightTx 
       BeginProperty Font 
          Name            =   "宋体"
-         Size            =   14.25
+         Size            =   14.4
          Charset         =   134
          Weight          =   700
          Underline       =   0   'False
@@ -294,7 +288,7 @@ Begin VB.Form Form2
    Begin VB.TextBox WidthTx 
       BeginProperty Font 
          Name            =   "宋体"
-         Size            =   14.25
+         Size            =   14.4
          Charset         =   134
          Weight          =   700
          Underline       =   0   'False
@@ -319,7 +313,7 @@ Begin VB.Form Form2
       Caption         =   "游戏路径:"
       BeginProperty Font 
          Name            =   "宋体"
-         Size            =   10.5
+         Size            =   10.8
          Charset         =   134
          Weight          =   400
          Underline       =   0   'False
@@ -422,7 +416,7 @@ Begin VB.Form Form2
       Caption         =   "*"
       BeginProperty Font 
          Name            =   "宋体"
-         Size            =   26.25
+         Size            =   26.4
          Charset         =   134
          Weight          =   400
          Underline       =   0   'False
@@ -538,7 +532,6 @@ Attribute VB_Exposed = False
 Private Declare Function InternetGetConnectedState Lib "wininet.dll" (ByRef dwFlags As Long, ByVal dwReserved As Long) As Long
 Dim LoopNum As Long '用来保存闹钟的Timer循环次数
 Dim NowNum As Long '用来保存当前闹钟的Timer循环次数
-Dim St As Integer '保存改名是是否已经获得名字的UTF8编码文本
 Dim MyName As String
 Private Sub Command1_Click() '设置魔兽分辨率
 If WidthTx.Text <> "" And HeightTx.Text <> "" Then
@@ -610,12 +603,65 @@ PopupMenu PF
 End Sub
 
 Private Sub Command2_Click()    '改名
-If GMTX.Text = "" Then
-    MsgBox "请输入要改的名字"
-Else
-Timer2.Enabled = True
-St = 1
-End If
+Dim hwnd As Long, Handle As Long, PID As Long
+    If GMTX.Text = "" Then
+        MsgBox "请输入要改的名字"
+    Else
+        hwnd = FindWindow(vbNullString, "浩方电竞平台 - 6.0.0.0521(RC7)")
+        GetWindowThreadProcessId hwnd, PID
+        Handle = OpenProcess(PROCESS_ALL_ACCESS, False, PID)
+        Call GetHFGameShelldll
+        
+        WriteProcessMemory Handle, ByVal HFGameShelldll + &H5A7A0, ByVal GMTX.Text, 56, 0& '先写入昵称
+        
+        Dim data(24) As Byte
+        data(0) = &HF3
+        data(1) = &HA5
+        data(2) = &H8B
+        data(3) = &H83
+        data(4) = &H58
+        data(5) = &H5
+        data(6) = &H0
+        data(7) = &H0
+        data(8) = &HB9
+        data(9) = &HE
+        data(10) = &H0
+        data(11) = &H0
+        data(12) = &H0
+        data(13) = &HBE
+        data(14) = &HA0
+        data(15) = &HA7
+        data(16) = &H5
+        data(17) = &H10
+        data(18) = &HF3
+        data(19) = &HA5
+        data(20) = &HE9
+        data(21) = &HD4
+        data(22) = &HF0
+        data(23) = &HFC
+        data(24) = &HFF
+        WriteProcessMemory Handle, ByVal HFGameShelldll + &H5A6D0, data(0), 25, 0&
+        
+        data(0) = &HB9
+        data(1) = &H8
+        data(2) = &H0
+        data(3) = &H0
+        data(4) = &H0
+        data(5) = &H8D
+        data(6) = &H74
+        data(7) = &H24
+        data(8) = &H20
+        data(9) = &HE9
+        data(10) = &H16
+        data(11) = &HF
+        data(12) = &H3
+        data(13) = &H0
+        data(14) = &H90
+        data(15) = &H90
+        data(16) = &H90
+        WriteProcessMemory Handle, ByVal HFGameShelldll + &H297AC, data(0), 17, 0&
+        
+    End If
 End Sub
 
 Private Sub Command3_Click() '设置提醒
@@ -652,13 +698,12 @@ End Sub
 Private Sub Command4_Click()
 Dim SM As String
 SM = "①运行魔兽助手" & vbCrLf & _
-"②开始游戏" & vbCrLf & _
-"③按下回车，退格，DEL三个键强制退出游戏" & vbCrLf & _
-"④在魔兽助手上输入名字，点击改名" & vbCrLf & _
-"⑤OK，开始游戏,快玩吧！" & vbCrLf & _
+"②打开浩方并登陆" & vbCrLf & _
+"③输入新昵称，点击更改" & vbCrLf & _
+"④OK，开始游戏,快玩吧！" & vbCrLf & _
 vbCrLf & _
-"如果有问题，请联系作者。"
-MsgBox SM, 0, "改名方法：（暂不支持最新版浩方）"
+"如要重新改名，请更改后重新进入房间。"
+MsgBox SM, 0, "改名方法：（仅支持浩方电竞平台 - 6.0.0.0521(RC7)）"
 End Sub
 
 
@@ -742,87 +787,87 @@ End Sub
 
 
 Private Sub PF0_Click() '资源109-138为皮肤文件
-Dim Data() As Byte
-Data = LoadResData(109, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(109, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
 End Sub
 Private Sub PF1_Click()
-Dim Data() As Byte
-Data = LoadResData(110, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(110, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
 End Sub
 
 Private Sub PF2_Click()
-Dim Data() As Byte
-Data = LoadResData(111, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(111, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
 End Sub
 
 Private Sub PF3_Click()
-Dim Data() As Byte
-Data = LoadResData(112, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(112, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
 End Sub
 
 Private Sub PF4_Click()
-Dim Data() As Byte
-Data = LoadResData(113, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(113, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
 End Sub
 
 Private Sub PF5_Click()
-Dim Data() As Byte
-Data = LoadResData(114, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(114, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
 End Sub
 
 Private Sub PF6_Click()
-Dim Data() As Byte
-Data = LoadResData(115, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(115, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
 End Sub
 
 Private Sub PF7_Click()
-Dim Data() As Byte
-Data = LoadResData(116, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(116, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
@@ -830,11 +875,11 @@ End Sub
 
 
 Private Sub PF8_Click()
-Dim Data() As Byte
-Data = LoadResData(117, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(117, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
@@ -843,11 +888,11 @@ End Sub
 
 
 Private Sub PF9_Click()
-Dim Data() As Byte
-Data = LoadResData(118, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(118, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
@@ -855,11 +900,11 @@ End Sub
 
 
 Private Sub PF10_Click()
-Dim Data() As Byte
-Data = LoadResData(119, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(119, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
@@ -867,11 +912,11 @@ End Sub
 
 
 Private Sub PF11_Click()
-Dim Data() As Byte
-Data = LoadResData(120, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(120, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
@@ -879,22 +924,22 @@ End Sub
 
 
 Private Sub PF12_Click()
-Dim Data() As Byte
-Data = LoadResData(121, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(121, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
 End Sub
 
 Private Sub PF13_Click()
-Dim Data() As Byte
-Data = LoadResData(122, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(122, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
@@ -902,66 +947,66 @@ End Sub
 
 
 Private Sub PF14_Click()
-Dim Data() As Byte
-Data = LoadResData(123, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(123, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
 End Sub
 
 Private Sub PF15_Click()
-Dim Data() As Byte
-Data = LoadResData(124, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(124, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
 End Sub
 
 Private Sub PF16_Click()
-Dim Data() As Byte
-Data = LoadResData(125, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(125, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
 End Sub
 
 Private Sub PF17_Click()
-Dim Data() As Byte
-Data = LoadResData(126, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(126, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
 End Sub
 
 Private Sub PF18_Click()
-Dim Data() As Byte
-Data = LoadResData(127, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(127, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
 End Sub
 
 Private Sub PF19_Click()
-Dim Data() As Byte
-Data = LoadResData(128, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(128, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
@@ -969,99 +1014,99 @@ End Sub
 
 
 Private Sub PF20_Click()
-Dim Data() As Byte
-Data = LoadResData(129, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(129, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
 End Sub
 
 Private Sub PF21_Click()
-Dim Data() As Byte
-Data = LoadResData(130, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(130, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
 End Sub
 
 Private Sub PF22_Click()
-Dim Data() As Byte
-Data = LoadResData(131, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(131, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
 End Sub
 
 Private Sub PF23_Click()
-Dim Data() As Byte
-Data = LoadResData(132, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(132, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
 End Sub
 
 Private Sub PF24_Click()
-Dim Data() As Byte
-Data = LoadResData(133, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(133, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
 End Sub
 
 Private Sub PF25_Click()
-Dim Data() As Byte
-Data = LoadResData(134, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(134, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
 End Sub
 
 Private Sub PF26_Click()
-Dim Data() As Byte
-Data = LoadResData(135, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(135, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
 End Sub
 
 Private Sub PF27_Click()
-Dim Data() As Byte
-Data = LoadResData(136, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(136, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
 End Sub
 
 Private Sub PF28_Click()
-Dim Data() As Byte
-Data = LoadResData(137, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(137, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
@@ -1069,11 +1114,11 @@ End Sub
 
 
 Private Sub PF29_Click()
-Dim Data() As Byte
-Data = LoadResData(138, "CUSTOM")
+Dim data() As Byte
+data = LoadResData(138, "CUSTOM")
 Open "C:\WINDOWS\system32\Pifu.she" For Binary As #1
-For Lon = 0 To UBound(Data)  '欲生成的文件大小
-    Put #1, , Data(Lon) '释放文件
+For Lon = 0 To UBound(data)  '欲生成的文件大小
+    Put #1, , data(Lon) '释放文件
 Next
 Close #1
 loadSkin
@@ -1107,50 +1152,7 @@ Else
 End If
 End Sub
 
-Private Sub Timer2_Timer() '改名
-Dim aStr As String
-Dim hwnd As Long, Handle As Long, PID As Long, Address As Long
-If St = 1 Then
-    aStr = Clipboard.GetText                    '保存原剪贴板文本
-    Clipboard.Clear                             '清空原剪贴板文本
-    ClipboardSetText hwnd, UTF8_Encode(GMTX.Text)      '设置剪贴板文本
-    MyName = Clipboard.GetText
-    hwnd = FindWindow(vbNullString, "Warcraft III")
-    GetWindowThreadProcessId hwnd, PID
-    Handle = OpenProcess(PROCESS_ALL_ACCESS, False, PID)
-    Call Getgamedll
-    ReadProcessMemory Handle, ByVal Wargamedll + &HAC5164, ByVal VarPtr(Address), 4, 0&
-    Address = Address + &H1C
-    ReadProcessMemory Handle, ByVal Address, ByVal VarPtr(Address), 4, 0&
-    Address = Address + &H8
-    ReadProcessMemory Handle, ByVal Address, ByVal VarPtr(Address), 4, 0&
-    Address = Address + &H10
-    ReadProcessMemory Handle, ByVal Address, ByVal VarPtr(Address), 4, 0&
-    Address = Address + &H18
-    WriteProcessMemory Handle, ByVal Address, ByVal MyName, 255, 0&
-    CloseHandle Handle
-    Shell "reg add " & Chr(34) & "HKEY_CURRENT_USER\Software\Blizzard Entertainment\Warcraft III\String" & Chr(34) & " /v " & Chr(34) & "userlocal" & Chr(34) & " /t reg_sz" & " /d " & MyName & " /f", vbHide   '改名
-    Delay 100
-    Clipboard.Clear                             '清空原剪贴板文本
-    Clipboard.SetText aStr                      '回复元剪贴板文本
-    St = 0
-End If
-If MyName <> "" Then
-    hwnd = FindWindow(vbNullString, "Warcraft III")
-    GetWindowThreadProcessId hwnd, PID
-    Handle = OpenProcess(PROCESS_ALL_ACCESS, False, PID)
-    Call Getgamedll
-    ReadProcessMemory Handle, ByVal Wargamedll + &HAC5164, ByVal VarPtr(Address), 4, 0&
-    Address = Address + &H1C
-    ReadProcessMemory Handle, ByVal Address, ByVal VarPtr(Address), 4, 0&
-    Address = Address + &H8
-    ReadProcessMemory Handle, ByVal Address, ByVal VarPtr(Address), 4, 0&
-    Address = Address + &H10
-    ReadProcessMemory Handle, ByVal Address, ByVal VarPtr(Address), 4, 0&
-    Address = Address + &H18
-    WriteProcessMemory Handle, ByVal Address, ByVal MyName, 255, 0&
-End If
-End Sub
+
 
 Private Sub WidthTx_KeyPress(KeyAscii As Integer)
     If KeyAscii < 48 Or KeyAscii > 57 Then  '如果输入的不是数字
