@@ -603,7 +603,7 @@ PopupMenu PF
 End Sub
 
 Private Sub Command2_Click()    '改名
-Dim hwnd As Long, Handle As Long, PID As Long
+Dim hwnd As Long, Handle As Long, PID As Long, Address As Long
     If GMTX.Text = "" Then
         MsgBox "请输入要改的名字"
     Else
@@ -661,6 +661,14 @@ Dim hwnd As Long, Handle As Long, PID As Long
         data(16) = &H90
         WriteProcessMemory Handle, ByVal HFGameShelldll + &H297AC, data(0), 17, 0&
         
+        '------------在房间内直接改
+        ReadProcessMemory Handle, ByVal &H5D62CC, Address, 4, 0&
+        WriteProcessMemory Handle, ByVal Address, ByVal GMTX.Text, 56, 0&
+        
+        ReadProcessMemory Handle, ByVal &H5D6368, Address, 4, 0&
+        ReadProcessMemory Handle, ByVal Address + &H2AC, Address, 4, 0&
+        WriteProcessMemory Handle, ByVal Address, ByVal GMTX.Text, 56, 0&
+        
     End If
 End Sub
 
@@ -702,7 +710,7 @@ SM = "①运行魔兽助手" & vbCrLf & _
 "③输入新昵称，点击更改" & vbCrLf & _
 "④OK，开始游戏,快玩吧！" & vbCrLf & _
 vbCrLf & _
-"如要重新改名，请更改后重新进入房间。"
+"如要重新改名，请更改后重新启动游戏。"
 MsgBox SM, 0, "改名方法：（仅支持浩方电竞平台 - 6.0.0.0521(RC7)）"
 End Sub
 
