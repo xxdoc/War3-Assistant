@@ -3,6 +3,7 @@ Public Wargamedll As Long
 Public WarStormdll As Long
 Public WAR3dll As Long
 Public HFGameShelldll As Long
+Public KernelBasedll As Long
 Private Declare Function GetCurrentProcess Lib "kernel32" () As Long
 Private Declare Function Module32First Lib "kernel32" (ByVal hSnapShot As Long, uProcess As MODULEENTRY32) As Long
 Private Declare Function Module32Next Lib "kernel32" (ByVal hSnapShot As Long, uProcess As MODULEENTRY32) As Long
@@ -39,6 +40,13 @@ Dim WindowHandle As Long, ChildWindowHandle As Long
          Loop
 guanbi: CloseHandle hSnapShot
 End Function
+Public Function GetKernelBasedll()
+    Dim a As Long, hwnd As Long, PID As Long
+    hwnd = FindWindow(vbNullString, "Warcraft III")
+    GetWindowThreadProcessId hwnd, PID
+    KernelBasedll = dlljz(PID, "kernelbase.dll")
+End Function
+
 Public Function Getgamedll()
     Dim a As Long, hwnd As Long, PID As Long
     hwnd = FindWindow(vbNullString, "Warcraft III")

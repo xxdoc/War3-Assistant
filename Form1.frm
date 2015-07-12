@@ -4,7 +4,7 @@ Begin VB.Form Form1
    BorderStyle     =   1  'Fixed Single
    Caption         =   "War3 Assistant"
    ClientHeight    =   2580
-   ClientLeft      =   7215
+   ClientLeft      =   7212
    ClientTop       =   3660
    ClientWidth     =   6180
    DrawMode        =   1  'Blackness
@@ -396,10 +396,11 @@ Begin VB.Form Form1
          TabIndex        =   23
          Top             =   1560
          Width           =   2475
-         _ExtentX        =   4366
-         _ExtentY        =   476
+         _ExtentX        =   4360
+         _ExtentY        =   466
          _Version        =   393217
          BorderStyle     =   0
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          OLEDragMode     =   0
          OLEDropMode     =   0
@@ -411,10 +412,11 @@ Begin VB.Form Form1
          TabIndex        =   22
          Top             =   1200
          Width           =   2475
-         _ExtentX        =   4366
-         _ExtentY        =   476
+         _ExtentX        =   4360
+         _ExtentY        =   466
          _Version        =   393217
          BorderStyle     =   0
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          OLEDragMode     =   0
          OLEDropMode     =   0
@@ -426,10 +428,11 @@ Begin VB.Form Form1
          TabIndex        =   21
          Top             =   840
          Width           =   2475
-         _ExtentX        =   4366
-         _ExtentY        =   476
+         _ExtentX        =   4360
+         _ExtentY        =   466
          _Version        =   393217
          BorderStyle     =   0
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          OLEDragMode     =   0
          OLEDropMode     =   0
@@ -441,10 +444,11 @@ Begin VB.Form Form1
          TabIndex        =   20
          Top             =   480
          Width           =   2475
-         _ExtentX        =   4366
-         _ExtentY        =   476
+         _ExtentX        =   4360
+         _ExtentY        =   466
          _Version        =   393217
          BorderStyle     =   0
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          OLEDragMode     =   0
          OLEDropMode     =   0
@@ -479,7 +483,7 @@ Begin VB.Form Form1
          Caption         =   "~ ="
          BeginProperty Font 
             Name            =   "宋体"
-            Size            =   14.25
+            Size            =   14.4
             Charset         =   134
             Weight          =   400
             Underline       =   0   'False
@@ -497,7 +501,7 @@ Begin VB.Form Form1
          Caption         =   "9 ="
          BeginProperty Font 
             Name            =   "宋体"
-            Size            =   14.25
+            Size            =   14.4
             Charset         =   134
             Weight          =   400
             Underline       =   0   'False
@@ -515,7 +519,7 @@ Begin VB.Form Form1
          Caption         =   "0 ="
          BeginProperty Font 
             Name            =   "宋体"
-            Size            =   14.25
+            Size            =   14.4
             Charset         =   134
             Weight          =   400
             Underline       =   0   'False
@@ -533,7 +537,7 @@ Begin VB.Form Form1
          Caption         =   "8 ="
          BeginProperty Font 
             Name            =   "宋体"
-            Size            =   14.25
+            Size            =   14.4
             Charset         =   134
             Weight          =   400
             Underline       =   0   'False
@@ -550,7 +554,7 @@ Begin VB.Form Form1
          Caption         =   "7 ="
          BeginProperty Font 
             Name            =   "宋体"
-            Size            =   14.25
+            Size            =   14.4
             Charset         =   134
             Weight          =   400
             Underline       =   0   'False
@@ -565,60 +569,60 @@ Begin VB.Form Form1
       End
    End
    Begin VB.Image Image3 
-      Height          =   240
+      Height          =   192
       Left            =   7080
       Picture         =   "Form1.frx":1539E
       Top             =   3720
       Visible         =   0   'False
-      Width           =   240
+      Width           =   192
    End
    Begin VB.Image ImageC 
-      Height          =   240
+      Height          =   192
       Left            =   0
       Picture         =   "Form1.frx":15928
       Top             =   0
       Visible         =   0   'False
-      Width           =   240
+      Width           =   192
    End
    Begin VB.Image ImageD 
-      Height          =   240
+      Height          =   192
       Left            =   0
       Picture         =   "Form1.frx":15EB2
       Top             =   0
       Visible         =   0   'False
-      Width           =   240
+      Width           =   192
    End
    Begin VB.Image Image2 
-      Height          =   240
+      Height          =   192
       Left            =   0
       Picture         =   "Form1.frx":1643C
       Top             =   0
       Visible         =   0   'False
-      Width           =   240
+      Width           =   192
    End
    Begin VB.Image Image1 
-      Height          =   480
+      Height          =   384
       Left            =   2220
       Picture         =   "Form1.frx":169C6
       Top             =   1140
       Visible         =   0   'False
-      Width           =   480
+      Width           =   384
    End
    Begin VB.Image ImageB 
-      Height          =   240
+      Height          =   192
       Left            =   0
       Picture         =   "Form1.frx":17290
       Top             =   0
       Visible         =   0   'False
-      Width           =   240
+      Width           =   192
    End
    Begin VB.Image ImageA 
-      Height          =   240
+      Height          =   192
       Left            =   0
       Picture         =   "Form1.frx":1781A
       Top             =   0
       Visible         =   0   'False
-      Width           =   240
+      Width           =   192
    End
    Begin VB.Label Label6 
       AutoSize        =   -1  'True
@@ -918,23 +922,23 @@ End If
 End Sub
 
 Private Sub CHKXL_Click() '显蓝
-Dim Data() As Byte
+Dim data() As Byte
 If CHKXL.Value = 1 Then
     If Trim(Form2.Text5.Text) <> "" And Dir(Form2.Text5.Text) <> "" Then
         If Dir(Mid(Form2.Text5.Text, 1, Len(Form2.Text5.Text) - 8) & "wars.mixtape") = "" Then
-            Data = LoadResData(139, "CUSTOM")
+            data = LoadResData(139, "CUSTOM")
             Open Mid(Form2.Text5.Text, 1, Len(Form2.Text5.Text) - 8) & "wars.mixtape" For Binary As #1
-            For Lon = 0 To UBound(Data)  '欲生成的文件大小
-                Put #1, , Data(Lon) '释放文件
+            For Lon = 0 To UBound(data)  '欲生成的文件大小
+                Put #1, , data(Lon) '释放文件
             Next
             Close #1
         End If
         
         If Dir(Mid(Form2.Text5.Text, 1, Len(Form2.Text5.Text) - 8) & "ManaColor_99uxi.com.txt") = "" Then
-            Data = LoadResData(140, "CUSTOM")
+            data = LoadResData(140, "CUSTOM")
             Open Mid(Form2.Text5.Text, 1, Len(Form2.Text5.Text) - 8) & "ManaColor_99uxi.com.txt" For Binary As #1
-            For Lon = 0 To UBound(Data)  '欲生成的文件大小
-                Put #1, , Data(Lon) '释放文件
+            For Lon = 0 To UBound(data)  '欲生成的文件大小
+                Put #1, , data(Lon) '释放文件
             Next
             Close #1
         End If
@@ -1027,6 +1031,7 @@ Private Sub Command2_Click() '退出按钮
     Print #1, Form4.left
     Print #1, Form4.Text2.Text
     Print #1, Form4.Text3.Text
+    Print #1, Form2.Text3.Text
     Close #1
     If 获取魔兽版本 = "1.24E" Then Call 不改124E
     If 获取魔兽版本 = "1.24B" Then Call 不改124B
@@ -1092,6 +1097,7 @@ Private Sub Exit_Click()                    '如果点击托盘菜单退出
     Print #1, Form4.left
     Print #1, Form4.Text2.Text
     Print #1, Form4.Text3.Text
+    Print #1, Form2.Text3.Text
     Close #1
     If 获取魔兽版本 = "1.24E" Then Call 不改124E
     If 获取魔兽版本 = "1.24B" Then Call 不改124B
@@ -1287,6 +1293,9 @@ On Error GoTo NewStart
  Line Input #1, a
 On Error GoTo NewStart
     Form4.Text3.Text = a
+ Line Input #1, a
+On Error GoTo NewStart
+    Form2.Text3.Text = a
 Close #1
 
 End If
@@ -1320,6 +1329,9 @@ NewStart:
         HhText3.Text = ""
         HhText4.Text = ""
         HhText5.Text = ""
+        
+        Form2.Text3.Text = 16
+        
     End If
     
 End Sub

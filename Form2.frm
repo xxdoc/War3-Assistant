@@ -3,10 +3,10 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
 Begin VB.Form Form2 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "War3 Assistant"
-   ClientHeight    =   3756
+   ClientHeight    =   4212
    ClientLeft      =   8232
    ClientTop       =   5520
-   ClientWidth     =   4668
+   ClientWidth     =   4716
    BeginProperty Font 
       Name            =   "宋体"
       Size            =   21.6
@@ -20,9 +20,50 @@ Begin VB.Form Form2
    LinkTopic       =   "Form2"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   3756
-   ScaleWidth      =   4668
+   ScaleHeight     =   4212
+   ScaleWidth      =   4716
    ShowInTaskbar   =   0   'False
+   Begin VB.Timer Timer2 
+      Enabled         =   0   'False
+      Interval        =   100
+      Left            =   2040
+      Top             =   720
+   End
+   Begin VB.CommandButton Command5 
+      Caption         =   "游戏加速"
+      BeginProperty Font 
+         Name            =   "宋体"
+         Size            =   9
+         Charset         =   134
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   432
+      Left            =   3120
+      TabIndex        =   21
+      ToolTipText     =   "开启后游戏中按小键盘+可加速，按小键盘-可恢复"
+      Top             =   720
+      Width           =   1332
+   End
+   Begin VB.TextBox Text3 
+      BeginProperty Font 
+         Name            =   "宋体"
+         Size            =   13.8
+         Charset         =   134
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   444
+      Left            =   240
+      TabIndex        =   20
+      Text            =   "64"
+      Top             =   720
+      Width           =   2772
+   End
    Begin VB.CommandButton Command13 
       Caption         =   "更换皮肤"
       BeginProperty Font 
@@ -38,12 +79,12 @@ Begin VB.Form Form2
       Left            =   2640
       TabIndex        =   19
       ToolTipText     =   "如果换肤后窗体变形重启程序即可"
-      Top             =   3240
+      Top             =   3720
       Width           =   975
    End
    Begin MSComDlg.CommonDialog CommonDialog1 
       Left            =   3960
-      Top             =   1440
+      Top             =   1920
       _ExtentX        =   847
       _ExtentY        =   847
       _Version        =   393216
@@ -63,7 +104,7 @@ Begin VB.Form Form2
       Left            =   3840
       TabIndex        =   18
       ToolTipText     =   "如果游戏运行时点击可自动获取"
-      Top             =   2640
+      Top             =   3120
       Width           =   735
    End
    Begin VB.TextBox Text5 
@@ -80,7 +121,7 @@ Begin VB.Form Form2
       Height          =   435
       Left            =   1080
       TabIndex        =   17
-      Top             =   2640
+      Top             =   3120
       Width           =   2655
    End
    Begin VB.CommandButton Command11 
@@ -98,7 +139,7 @@ Begin VB.Form Form2
       Left            =   0
       TabIndex        =   10
       ToolTipText     =   "联系作者"
-      Top             =   3240
+      Top             =   3720
       Width           =   975
    End
    Begin VB.CommandButton Command10 
@@ -116,7 +157,7 @@ Begin VB.Form Form2
       Left            =   3720
       TabIndex        =   12
       ToolTipText     =   "查看帮助"
-      Top             =   3240
+      Top             =   3720
       Width           =   975
    End
    Begin VB.CommandButton Command9 
@@ -134,7 +175,7 @@ Begin VB.Form Form2
       Left            =   1080
       TabIndex        =   11
       ToolTipText     =   "保存后该配置信息在其他电脑依然存在"
-      Top             =   3240
+      Top             =   3720
       Width           =   1455
    End
    Begin VB.CommandButton Command4 
@@ -152,14 +193,14 @@ Begin VB.Form Form2
       Left            =   3000
       Style           =   1  'Graphical
       TabIndex        =   5
-      Top             =   840
+      Top             =   1320
       Width           =   735
    End
    Begin VB.Timer Timer1 
       Enabled         =   0   'False
       Interval        =   60000
       Left            =   3360
-      Top             =   4320
+      Top             =   4800
    End
    Begin VB.TextBox Text2 
       BeginProperty Font 
@@ -175,7 +216,7 @@ Begin VB.Form Form2
       Left            =   720
       TabIndex        =   9
       ToolTipText     =   "提醒的内容"
-      Top             =   2040
+      Top             =   2520
       Width           =   3855
    End
    Begin VB.TextBox Text1 
@@ -192,7 +233,7 @@ Begin VB.Form Form2
       Left            =   840
       TabIndex        =   7
       ToolTipText     =   "间隔时间"
-      Top             =   1440
+      Top             =   1920
       Width           =   615
    End
    Begin VB.CommandButton Command3 
@@ -210,7 +251,7 @@ Begin VB.Form Form2
       Left            =   2400
       Style           =   1  'Graphical
       TabIndex        =   8
-      Top             =   1440
+      Top             =   1920
       Width           =   1575
    End
    Begin VB.TextBox GMTX 
@@ -227,7 +268,7 @@ Begin VB.Form Form2
       Left            =   180
       TabIndex        =   4
       ToolTipText     =   "名字"
-      Top             =   840
+      Top             =   1320
       Width           =   2745
    End
    Begin VB.CommandButton Command2 
@@ -246,7 +287,7 @@ Begin VB.Form Form2
       Style           =   1  'Graphical
       TabIndex        =   6
       ToolTipText     =   "改名"
-      Top             =   840
+      Top             =   1320
       Width           =   735
    End
    Begin VB.CommandButton Command1 
@@ -302,11 +343,17 @@ Begin VB.Form Form2
       Top             =   120
       Width           =   855
    End
+   Begin VB.Line Line7 
+      X1              =   0
+      X2              =   5760
+      Y1              =   600
+      Y2              =   600
+   End
    Begin VB.Line Line6 
       X1              =   0
       X2              =   5040
-      Y1              =   3120
-      Y2              =   3120
+      Y1              =   3600
+      Y2              =   3600
    End
    Begin VB.Label Label1 
       AutoSize        =   -1  'True
@@ -320,43 +367,43 @@ Begin VB.Form Form2
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   210
+      Height          =   216
       Left            =   120
       TabIndex        =   16
-      Top             =   2760
-      Width           =   945
+      Top             =   3240
+      Width           =   948
    End
    Begin VB.Line Line5 
       Visible         =   0   'False
       X1              =   120
       X2              =   0
-      Y1              =   2520
-      Y2              =   2520
+      Y1              =   3000
+      Y2              =   3000
    End
    Begin VB.Line Line4 
       X1              =   0
       X2              =   4560
-      Y1              =   2520
-      Y2              =   2520
+      Y1              =   3000
+      Y2              =   3000
    End
    Begin VB.Line Line3 
       X1              =   0
       X2              =   4560
-      Y1              =   720
-      Y2              =   720
+      Y1              =   1200
+      Y2              =   1200
    End
    Begin VB.Line Line2 
       X1              =   0
       X2              =   4680
-      Y1              =   1320
-      Y2              =   1320
+      Y1              =   1800
+      Y2              =   1800
    End
    Begin VB.Line Line1 
       Visible         =   0   'False
       X1              =   120
       X2              =   4560
-      Y1              =   2520
-      Y2              =   2520
+      Y1              =   3000
+      Y2              =   3000
    End
    Begin VB.Label Label6 
       AutoSize        =   -1  'True
@@ -373,7 +420,7 @@ Begin VB.Form Form2
       Height          =   240
       Left            =   1560
       TabIndex        =   15
-      Top             =   1560
+      Top             =   2040
       Width           =   480
    End
    Begin VB.Label Label5 
@@ -391,7 +438,7 @@ Begin VB.Form Form2
       Height          =   240
       Left            =   120
       TabIndex        =   14
-      Top             =   2040
+      Top             =   2520
       Width           =   720
    End
    Begin VB.Label Label4 
@@ -409,7 +456,7 @@ Begin VB.Form Form2
       Height          =   240
       Left            =   120
       TabIndex        =   13
-      Top             =   1560
+      Top             =   2040
       Width           =   720
    End
    Begin VB.Label Label3 
@@ -661,13 +708,7 @@ Dim hwnd As Long, Handle As Long, PID As Long, Address As Long
         data(16) = &H90
         WriteProcessMemory Handle, ByVal HFGameShelldll + &H297AC, data(0), 17, 0&
         
-        '------------在房间内直接改
-        ReadProcessMemory Handle, ByVal &H5D62CC, Address, 4, 0&
-        WriteProcessMemory Handle, ByVal Address, ByVal GMTX.Text, 56, 0&
-        
-        ReadProcessMemory Handle, ByVal &H5D6368, Address, 4, 0&
-        ReadProcessMemory Handle, ByVal Address + &H2AC, Address, 4, 0&
-        WriteProcessMemory Handle, ByVal Address, ByVal GMTX.Text, 56, 0&
+        CloseHandle Handle
         
     End If
 End Sub
@@ -710,10 +751,90 @@ SM = "①运行魔兽助手" & vbCrLf & _
 "③输入新昵称，点击更改" & vbCrLf & _
 "④OK，开始游戏,快玩吧！" & vbCrLf & _
 vbCrLf & _
-"如要重新改名，请更改后重新启动游戏。"
+"如要重新改名，请更改后重新进入房间。"
 MsgBox SM, 0, "改名方法：（仅支持浩方电竞平台 - 6.0.0.0521(RC7)）"
 End Sub
 
+Private Sub Command5_Click() '游戏加速
+Dim hwnd As Long, Handle As Long, PID As Long
+If Val(Text3.Text) < 1 Or Val(Text3.Text) > 120 Then Text3.Text = 20
+hwnd = FindWindow(vbNullString, "Warcraft III")
+If hwnd = 0 Then MsgBox "请先运行游戏": Exit Sub
+GetWindowThreadProcessId hwnd, PID
+Handle = OpenProcess(PROCESS_ALL_ACCESS, False, PID)
+Call GetKernelBasedll
+
+Dim data(52) As Byte
+data(0) = &HB9
+data(1) = &H0
+data(2) = &H0
+data(3) = &H0
+data(4) = &H0
+data(5) = &H3B
+data(6) = &HD
+data(7) = &HF0
+data(8) = &HF
+data(9) = &H12
+data(10) = &H76
+data(11) = &H75
+data(12) = &HB
+data(13) = &HA3
+data(14) = &HF0
+data(15) = &HF
+data(16) = &H12
+data(17) = &H76
+data(18) = &HA3
+data(19) = &HF8
+data(20) = &HF
+data(21) = &H12
+data(22) = &H76
+data(23) = &HC3
+data(24) = &H8B
+data(25) = &HC8
+data(26) = &H2B
+data(27) = &HD
+data(28) = &HF8
+data(29) = &HF
+data(30) = &H12
+data(31) = &H76
+data(32) = &H6B
+data(33) = &HC9
+data(34) = &H5
+data(35) = &HA3
+data(36) = &HF8
+data(37) = &HF
+data(38) = &H12
+data(39) = &H76
+data(40) = &HA1
+data(41) = &HF0
+data(42) = &HF
+data(43) = &H12
+data(44) = &H76
+data(45) = &H3
+data(46) = &HC1
+data(47) = &HA3
+data(48) = &HF0
+data(49) = &HF
+data(50) = &H12
+data(51) = &H76
+data(52) = &HC3
+WriteProcessMemory Handle, ByVal KernelBasedll + &H770, data(0), 53, 0& '更改GetTickCount的返回值
+
+data(0) = Val(Text3.Text)
+WriteProcessMemory Handle, ByVal KernelBasedll + &H792, data(0), 1, 0& '更改速率
+
+data(0) = &HE9
+data(1) = &H7C
+data(2) = &H77
+data(3) = &HFF
+data(4) = &HFF
+WriteProcessMemory Handle, ByVal KernelBasedll + &H8FEF&, data(0), 5, 0& '跳转过去
+
+CloseHandle Handle
+
+Timer2.Enabled = True
+
+End Sub
 
 Private Sub Command9_Click() '记录当前完整路径
 Dim aExe() As Byte, aLen As Long
@@ -1142,6 +1263,14 @@ Private Sub Text1_KeyPress(KeyAscii As Integer)
 End Sub
 
 
+Private Sub Text3_KeyPress(KeyAscii As Integer)
+    If KeyAscii < 48 Or KeyAscii > 57 Then  '如果输入的不是数字
+        If KeyAscii <> 8 Then  '如果按下的不是退格
+            KeyAscii = 0
+        End If
+    End If
+End Sub
+
 Private Sub Timer1_Timer() '定时提醒
 If NowNum + 1 = LoopNum Then
     GetWindowText GetForegroundWindow, WindowText, 255              '获取前台窗体标题
@@ -1161,6 +1290,39 @@ End If
 End Sub
 
 
+Private Sub Timer2_Timer() '加速
+Dim hwnd As Long, Handle As Long, PID As Long
+Dim data(1) As Byte
+If GetAsyncKeyState(107) < 0 Then  '按下+
+
+    If Val(Text3.Text) < 1 Or Val(Text3.Text) > 120 Then Text3.Text = 20
+    hwnd = FindWindow(vbNullString, "Warcraft III")
+    If hwnd = 0 Then MsgBox "请先运行游戏": Exit Sub
+    GetWindowThreadProcessId hwnd, PID
+    Handle = OpenProcess(PROCESS_ALL_ACCESS, False, PID)
+    Call GetKernelBasedll
+    
+    data(0) = Val(Text3.Text)
+    WriteProcessMemory Handle, ByVal KernelBasedll + &H792, data(0), 1, 0& '更改速率
+    
+    CloseHandle Handle
+    
+ElseIf GetAsyncKeyState(109) < 0 Then  '按下-
+
+    If Val(Text3.Text) < 1 Or Val(Text3.Text) > 120 Then Text3.Text = 20
+    hwnd = FindWindow(vbNullString, "Warcraft III")
+    If hwnd = 0 Then MsgBox "请先运行游戏": Exit Sub
+    GetWindowThreadProcessId hwnd, PID
+    Handle = OpenProcess(PROCESS_ALL_ACCESS, False, PID)
+    Call GetKernelBasedll
+    
+    data(0) = 1
+    WriteProcessMemory Handle, ByVal KernelBasedll + &H792, data(0), 1, 0& '更改速率
+    
+    CloseHandle Handle
+    
+End If
+End Sub
 
 Private Sub WidthTx_KeyPress(KeyAscii As Integer)
     If KeyAscii < 48 Or KeyAscii > 57 Then  '如果输入的不是数字
