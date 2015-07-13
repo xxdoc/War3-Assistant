@@ -400,6 +400,7 @@ Begin VB.Form Form1
          _ExtentY        =   466
          _Version        =   393217
          BorderStyle     =   0
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          OLEDragMode     =   0
          OLEDropMode     =   0
@@ -415,6 +416,7 @@ Begin VB.Form Form1
          _ExtentY        =   466
          _Version        =   393217
          BorderStyle     =   0
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          OLEDragMode     =   0
          OLEDropMode     =   0
@@ -430,6 +432,7 @@ Begin VB.Form Form1
          _ExtentY        =   466
          _Version        =   393217
          BorderStyle     =   0
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          OLEDragMode     =   0
          OLEDropMode     =   0
@@ -445,6 +448,7 @@ Begin VB.Form Form1
          _ExtentY        =   466
          _Version        =   393217
          BorderStyle     =   0
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          OLEDragMode     =   0
          OLEDropMode     =   0
@@ -653,9 +657,6 @@ Begin VB.Form Form1
       End
       Begin VB.Menu SH2 
          Caption         =   "更多"
-      End
-      Begin VB.Menu SH3 
-         Caption         =   "联系作者"
       End
       Begin VB.Menu Exit 
          Caption         =   "退出"
