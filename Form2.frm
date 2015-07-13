@@ -820,7 +820,7 @@ data(51) = &H76
 data(52) = &HC3
 WriteProcessMemory Handle, ByVal KernelBasedll + &H770, data(0), 53, 0& '更改GetTickCount的返回值
 
-data(0) = Val(Text3.Text)
+data(0) = 1
 WriteProcessMemory Handle, ByVal KernelBasedll + &H792, data(0), 1, 0& '更改速率
 
 data(0) = &HE9
