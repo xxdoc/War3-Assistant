@@ -400,7 +400,6 @@ Begin VB.Form Form1
          _ExtentY        =   466
          _Version        =   393217
          BorderStyle     =   0
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          OLEDragMode     =   0
          OLEDropMode     =   0
@@ -416,7 +415,6 @@ Begin VB.Form Form1
          _ExtentY        =   466
          _Version        =   393217
          BorderStyle     =   0
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          OLEDragMode     =   0
          OLEDropMode     =   0
@@ -432,7 +430,6 @@ Begin VB.Form Form1
          _ExtentY        =   466
          _Version        =   393217
          BorderStyle     =   0
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          OLEDragMode     =   0
          OLEDropMode     =   0
@@ -448,7 +445,6 @@ Begin VB.Form Form1
          _ExtentY        =   466
          _Version        =   393217
          BorderStyle     =   0
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          OLEDragMode     =   0
          OLEDropMode     =   0
@@ -1027,10 +1023,6 @@ Private Sub Command2_Click() '退出按钮
     Print #1, Form2.left
     Print #1, Form3.top
     Print #1, Form3.left
-    Print #1, Form4.top
-    Print #1, Form4.left
-    Print #1, Form4.Text2.Text
-    Print #1, Form4.Text3.Text
     Print #1, Form2.Text3.Text
     Close #1
     If 获取魔兽版本 = "1.24E" Then Call 不改124E
@@ -1093,10 +1085,6 @@ Private Sub Exit_Click()                    '如果点击托盘菜单退出
     Print #1, Form2.left
     Print #1, Form3.top
     Print #1, Form3.left
-    Print #1, Form4.top
-    Print #1, Form4.left
-    Print #1, Form4.Text2.Text
-    Print #1, Form4.Text3.Text
     Print #1, Form2.Text3.Text
     Close #1
     If 获取魔兽版本 = "1.24E" Then Call 不改124E
@@ -1146,8 +1134,6 @@ loadSkin  '加载皮肤
 Form1.Icon = Image1.Picture
 Form2.Icon = Image1.Picture
 Form3.Icon = Image1.Picture
-Form4.Icon = Image1.Picture
-Form4.Caption = "版本:" & App.Major & "." & App.Minor & "." & App.Revision
 Call TokenPrivileges                          '提权
 Call AddIcon                                  '设置系统托盘
 bKeycode(1) = 103   '小键盘数字键7
@@ -1281,18 +1267,6 @@ On Error GoTo NewStart
  Line Input #1, a
 On Error GoTo NewStart
     Form3.left = Val(a)
- Line Input #1, a
-On Error GoTo NewStart
-    Form4.top = Val(a)
- Line Input #1, a
-On Error GoTo NewStart
-    Form4.left = Val(a)
- Line Input #1, a
-On Error GoTo NewStart
-    Form4.Text2.Text = a
- Line Input #1, a
-On Error GoTo NewStart
-    Form4.Text3.Text = a
  Line Input #1, a
 On Error GoTo NewStart
     Form2.Text3.Text = a
@@ -1550,7 +1524,6 @@ Private Sub Hide_Click()
     Form1.Hide
     Form2.Hide
     Form3.Hide
-    Form4.Hide
     Form3.Timer1 = False
 End Sub
 
@@ -1617,20 +1590,6 @@ Form1.CHKXX.Refresh
 Form3.Command1.Refresh
 End Sub
 
-Private Sub SH3_Click()
-Form4.Hide
-Form4.Show
-If InternetGetConnectedState(0&, 0&) Then '如果网络已连接
-    Form4.Text1.Text = GetUrlFile("http://faithdmc.host166.web522.com/war3GGB")
-Else '如果网络未连接
-    Form4.Text1.Text = "网络未连接"
-End If
-Form1.CHKHh.Refresh
-Form1.CHKkey.Refresh
-Form1.CHKMH.Refresh
-Form1.CHKXX.Refresh
-Form3.Command1.Refresh
-End Sub
 Private Sub Show_Click()
 Form1.Hide
 Form1.Show

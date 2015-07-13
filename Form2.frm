@@ -6,7 +6,7 @@ Begin VB.Form Form2
    ClientHeight    =   4212
    ClientLeft      =   8232
    ClientTop       =   5520
-   ClientWidth     =   4716
+   ClientWidth     =   4620
    BeginProperty Font 
       Name            =   "宋体"
       Size            =   21.6
@@ -21,7 +21,7 @@ Begin VB.Form Form2
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   4212
-   ScaleWidth      =   4716
+   ScaleWidth      =   4620
    ShowInTaskbar   =   0   'False
    Begin VB.Timer Timer2 
       Enabled         =   0   'False
@@ -42,7 +42,7 @@ Begin VB.Form Form2
       EndProperty
       Height          =   432
       Left            =   3120
-      TabIndex        =   21
+      TabIndex        =   20
       ToolTipText     =   "开启后游戏中按小键盘+可加速，按小键盘-可恢复"
       Top             =   720
       Width           =   1332
@@ -59,7 +59,7 @@ Begin VB.Form Form2
       EndProperty
       Height          =   444
       Left            =   240
-      TabIndex        =   20
+      TabIndex        =   19
       Text            =   "64"
       Top             =   720
       Width           =   2772
@@ -76,11 +76,11 @@ Begin VB.Form Form2
          Strikethrough   =   0   'False
       EndProperty
       Height          =   495
-      Left            =   2640
-      TabIndex        =   19
+      Left            =   1680
+      TabIndex        =   18
       ToolTipText     =   "如果换肤后窗体变形重启程序即可"
       Top             =   3720
-      Width           =   975
+      Width           =   1332
    End
    Begin MSComDlg.CommonDialog CommonDialog1 
       Left            =   3960
@@ -102,7 +102,7 @@ Begin VB.Form Form2
       EndProperty
       Height          =   435
       Left            =   3840
-      TabIndex        =   18
+      TabIndex        =   17
       ToolTipText     =   "如果游戏运行时点击可自动获取"
       Top             =   3120
       Width           =   735
@@ -120,12 +120,12 @@ Begin VB.Form Form2
       EndProperty
       Height          =   435
       Left            =   1080
-      TabIndex        =   17
+      TabIndex        =   16
       Top             =   3120
       Width           =   2655
    End
    Begin VB.CommandButton Command11 
-      Caption         =   "联系作者"
+      Caption         =   "获取最新版本"
       BeginProperty Font 
          Name            =   "宋体"
          Size            =   10.8
@@ -140,7 +140,7 @@ Begin VB.Form Form2
       TabIndex        =   10
       ToolTipText     =   "联系作者"
       Top             =   3720
-      Width           =   975
+      Width           =   1452
    End
    Begin VB.CommandButton Command10 
       Caption         =   "使用帮助"
@@ -154,29 +154,11 @@ Begin VB.Form Form2
          Strikethrough   =   0   'False
       EndProperty
       Height          =   495
-      Left            =   3720
-      TabIndex        =   12
+      Left            =   3240
+      TabIndex        =   11
       ToolTipText     =   "查看帮助"
       Top             =   3720
-      Width           =   975
-   End
-   Begin VB.CommandButton Command9 
-      Caption         =   "保存默认配置"
-      BeginProperty Font 
-         Name            =   "宋体"
-         Size            =   10.8
-         Charset         =   134
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   495
-      Left            =   1080
-      TabIndex        =   11
-      ToolTipText     =   "保存后该配置信息在其他电脑依然存在"
-      Top             =   3720
-      Width           =   1455
+      Width           =   1332
    End
    Begin VB.CommandButton Command4 
       Caption         =   "帮助"
@@ -369,7 +351,7 @@ Begin VB.Form Form2
       EndProperty
       Height          =   216
       Left            =   120
-      TabIndex        =   16
+      TabIndex        =   15
       Top             =   3240
       Width           =   948
    End
@@ -419,7 +401,7 @@ Begin VB.Form Form2
       EndProperty
       Height          =   240
       Left            =   1560
-      TabIndex        =   15
+      TabIndex        =   14
       Top             =   2040
       Width           =   480
    End
@@ -437,7 +419,7 @@ Begin VB.Form Form2
       EndProperty
       Height          =   240
       Left            =   120
-      TabIndex        =   14
+      TabIndex        =   13
       Top             =   2520
       Width           =   720
    End
@@ -455,7 +437,7 @@ Begin VB.Form Form2
       EndProperty
       Height          =   240
       Left            =   120
-      TabIndex        =   13
+      TabIndex        =   12
       Top             =   2040
       Width           =   720
    End
@@ -576,7 +558,8 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Private Declare Function InternetGetConnectedState Lib "wininet.dll" (ByRef dwFlags As Long, ByVal dwReserved As Long) As Long
+Private Declare Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (Destination As Any, Source As Any, ByVal Length As Long)
+Private Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal hwnd As Long, ByVal lpOperation As String, ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As String, ByVal nShowCmd As Long) As Long
 Dim LoopNum As Long '用来保存闹钟的Timer循环次数
 Dim NowNum As Long '用来保存当前闹钟的Timer循环次数
 Dim MyName As String
@@ -619,13 +602,7 @@ MsgBox SM, 0, "使用帮助"
 End Sub
 
 Private Sub Command11_Click()
-Form4.Hide
-Form4.Show
-If InternetGetConnectedState(0&, 0&) Then '如果网络已连接
-    Form4.Text1.Text = GetUrlFile("http://faithdmc.host166.web522.com/war3GGB")
-Else '如果网络未连接
-    Form4.Text1.Text = "网络未连接"
-End If
+    ShellExecute 0, vbNullString, "https://raw.githubusercontent.com/ranulldd/War3-Assistant/master/War3%20Assistant.exe", vbNullString, vbNullString, vbNormalFocus
 End Sub
 
 Private Sub Command12_Click() '获取游戏路径
@@ -764,6 +741,13 @@ GetWindowThreadProcessId hwnd, PID
 Handle = OpenProcess(PROCESS_ALL_ACCESS, False, PID)
 Call GetKernelBasedll
 
+Dim Tmp As Long
+Dim Base(1) As Byte
+
+Tmp = KernelBasedll
+Tmp = Tmp / &H10000
+CopyMemory Base(0), Tmp, 2
+
 Dim data(52) As Byte
 data(0) = &HB9
 data(1) = &H0
@@ -774,20 +758,20 @@ data(5) = &H3B
 data(6) = &HD
 data(7) = &HF0
 data(8) = &HF
-data(9) = &H12
-data(10) = &H76
+data(9) = Base(0)
+data(10) = Base(1)
 data(11) = &H75
 data(12) = &HB
 data(13) = &HA3
 data(14) = &HF0
 data(15) = &HF
-data(16) = &H12
-data(17) = &H76
+data(16) = Base(0)
+data(17) = Base(1)
 data(18) = &HA3
 data(19) = &HF8
 data(20) = &HF
-data(21) = &H12
-data(22) = &H76
+data(21) = Base(0)
+data(22) = Base(1)
 data(23) = &HC3
 data(24) = &H8B
 data(25) = &HC8
@@ -795,28 +779,28 @@ data(26) = &H2B
 data(27) = &HD
 data(28) = &HF8
 data(29) = &HF
-data(30) = &H12
-data(31) = &H76
+data(30) = Base(0)
+data(31) = Base(1)
 data(32) = &H6B
 data(33) = &HC9
 data(34) = &H5
 data(35) = &HA3
 data(36) = &HF8
 data(37) = &HF
-data(38) = &H12
-data(39) = &H76
+data(38) = Base(0)
+data(39) = Base(1)
 data(40) = &HA1
 data(41) = &HF0
 data(42) = &HF
-data(43) = &H12
-data(44) = &H76
+data(43) = Base(0)
+data(44) = Base(1)
 data(45) = &H3
 data(46) = &HC1
 data(47) = &HA3
 data(48) = &HF0
 data(49) = &HF
-data(50) = &H12
-data(51) = &H76
+data(50) = Base(0)
+data(51) = Base(1)
 data(52) = &HC3
 WriteProcessMemory Handle, ByVal KernelBasedll + &H770, data(0), 53, 0& '更改GetTickCount的返回值
 
@@ -836,75 +820,7 @@ Timer2.Enabled = True
 
 End Sub
 
-Private Sub Command9_Click() '记录当前完整路径
-Dim aExe() As Byte, aLen As Long
-Open "C:\WINDOWS\system32\War3 Assistant Path" For Output As #2
-Print #2, App.Path & "\" & App.EXEName & ".exe"
-Close #2
-'If Dir("C:\WINDOWS\system32\War3 Assistant Ini.exe") = "" Then '如果文件不存在
-    aExe = LoadResData(105, "CUSTOM")
-    Open "C:\WINDOWS\system32\War3 Assistant Ini.exe" For Binary As #2
-    For aLen = 0 To UBound(aExe)  '欲生成的文件大小
-    Put #2, , aExe(aLen) '释放文件
-    Next
-    Close #2
-'End If
-Shell "C:\WINDOWS\system32\War3 Assistant Ini.exe", vbHide
-    Call DelIcon                                          '删除系统托盘
-    Open "C:\配置文件" For Output As #1               '保存当前设置
-    For i = 1 To 10
-        Print #1, Form1.aKeycodeText(i)
-        Print #1, aKeycode(i)
-    Next
-    For i = 7 To 10
-        Print #1, Form1.bKeycodeText(i)
-        Print #1, bKeycode(i)
-    Next
-    Print #1, Form1.HhText1.Text
-    Print #1, Form1.HhText2.Text
-    Print #1, Form1.HhText3.Text
-    Print #1, Form1.HhText4.Text
-    Print #1, Form1.HhText5.Text
-    Print #1, Form1.CHKkey.Value
-    Print #1, Form1.CHKMH.Value
-    Print #1, Form1.CHKHh.Value
-    Print #1, Form1.CHKXX.Value
-    Print #1, Form1.CK.Value
-    Print #1, Form1.Check1.Value
-    Print #1, Form1.CHKXL.Value
-    Print #1, Form2.WidthTx.Text
-    Print #1, Form2.HeightTx.Text
-    Print #1, Form2.Text1.Text
-    Print #1, Form2.Text2.Text
-    Print #1, Form2.GMTX.Text
 
-    Print #1, Form2.Text5.Text
-    Print #1, Form3.Text1.Text
-    Print #1, Form3.Text2.Text
-
-
-    Print #1, Form3.Check2.Value
-    Print #1, Form3.Check3.Value
-    Print #1, Form3.Check4.Value
-    Print #1, Form3.Check5.Value
-    Print #1, Form3.Check6.Value
-    Print #1, Form3.Check7.Value
-    Print #1, Form1.top
-    Print #1, Form1.left
-    Print #1, Form2.top
-    Print #1, Form2.left
-    Print #1, Form3.top
-    Print #1, Form3.left
-    Print #1, Form4.top
-    Print #1, Form4.left
-    Print #1, Form4.Text2.Text
-    Print #1, Form4.Text3.Text
-    Close #1
-    If 获取魔兽版本 = "1.24E" Then Call 不改124E
-    If 获取魔兽版本 = "1.24B" Then Call 不改124B
-    If 获取魔兽版本 = "1.20E" Then Call 不改120E
-    End
-End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
     If Cancel = 0 Then
