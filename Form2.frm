@@ -632,6 +632,7 @@ Dim hwnd As Long, Handle As Long, PID As Long, Address As Long
         MsgBox "请输入要改的名字"
     Else
         hwnd = FindWindow(vbNullString, "浩方电竞平台 - 6.0.0.0521(RC7)")
+        If hwnd = 0 Then MsgBox "请先运行浩方电竞平台": Exit Sub
         GetWindowThreadProcessId hwnd, PID
         Handle = OpenProcess(PROCESS_ALL_ACCESS, False, PID)
         Call GetHFGameShelldll
@@ -685,6 +686,11 @@ Dim hwnd As Long, Handle As Long, PID As Long, Address As Long
         data(16) = &H90
         WriteProcessMemory Handle, ByVal HFGameShelldll + &H297AC, data(0), 17, 0&
         
+        
+        '-------don't need reenter the room------
+        ReadProcessMemory ByVal Handle, ByVal &H5D62CC, Address, 4, 0&
+        WriteProcessMemory Handle, ByVal Address, ByVal GMTX.Text, 56, 0& '写入昵称
+                
         CloseHandle Handle
         
     End If
