@@ -688,8 +688,8 @@ Dim hwnd As Long, Handle As Long, PID As Long, Address As Long
         
         
         '-------don't need reenter the room------
-        ReadProcessMemory ByVal Handle, ByVal &H5D62CC, Address, 4, 0&
-        WriteProcessMemory Handle, ByVal Address, ByVal GMTX.Text, 56, 0& '–¥»ÎÍ«≥∆
+        'ReadProcessMemory ByVal Handle, ByVal &H5D62CC, Address, 4, 0&
+        'WriteProcessMemory Handle, ByVal Address, ByVal GMTX.Text, 56, 0& '–¥»ÎÍ«≥∆
                 
         CloseHandle Handle
         
