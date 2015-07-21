@@ -12,6 +12,7 @@ Call Getgamedll
         Call 大地图共享敌方视野124E(Handle)
         Call 小地图共享敌方视野124E(Handle)
         Call 显示技能124E(Handle)
+        Call 分辨幻影124E(Handle)
         If Form3.Check2.Value = 1 Then Call 可选视野外单位124E(Handle)
         If Form3.Check3.Value = 1 Then Call 资源124E(Handle)
         If Form3.Check4.Value = 1 Then Call 清除迷雾124E(Handle)
@@ -33,6 +34,7 @@ Call Getgamedll
         Call 大地图不共享敌方视野124E(Handle)
         Call 小地图不共享敌方视野124E(Handle)
         Call 不显示技能124E(Handle)
+        Call 不分辨幻影124E(Handle)
         If Form3.Check2.Value = 1 Then Call 不可选视野外单位124E(Handle)
         'If Form3.Check3.Value = 1 Then Call 不资源124E(Handle)
         If Form3.Check4.Value = 1 Then Call 不清除迷雾124E(Handle)
@@ -40,6 +42,20 @@ Call Getgamedll
         If Form3.Check6.Value = 1 Then Call 不显示头像124E(Handle)
         If Form3.Check7.Value = 1 Then Call 不显示头像124E(Handle)
 CloseHandle Handle
+End Sub
+
+Sub 分辨幻影124E(Handle As Long)  '分辨幻影1.24e
+    Dim b(2) As Byte
+        b(0) = &H40
+        b(1) = &HC3
+    WriteProcessMemory Handle, ByVal Wargamedll + &H28357C, b(0), 2, 0&
+End Sub
+
+Sub 不分辨幻影124E(Handle As Long)  '不分辨幻影1.24e
+    Dim b(2) As Byte
+        b(0) = &HC3
+        b(1) = &HCC
+    WriteProcessMemory Handle, ByVal Wargamedll + &H28357C, b(0), 2, 0&
 End Sub
 
 Sub 显示盟军头像124E(Handle As Long) '显示盟友英雄头像1.24e
@@ -335,6 +351,7 @@ Sub 小地图显示隐形124E(Handle As Long)  '小地图显示隐形单位1.24e
         c(10) = &H40
     WriteProcessMemory Handle, ByVal Wargamedll + &H39A52E, c(0), 11, 0&
 End Sub
+
 Sub 小地图不显示隐形124E(Handle As Long)
     WriteProcessMemory Handle, ByVal Wargamedll + &H362391, &H85, 1, 0&
     WriteProcessMemory Handle, ByVal Wargamedll + &H362394, &H84, 1, 0&
